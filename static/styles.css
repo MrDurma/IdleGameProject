@@ -1,0 +1,161 @@
+.css-tile1 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+
+.css-tile2 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+.css-tile3 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+.css-tile4 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+.css-tile5 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+.css-tile6 {
+    width: 250px;
+    height: 180px;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: -28px;
+    left: -45px;
+}
+.css-link1 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 135px;
+    left: 657px;
+}
+
+.css-link2 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 133px;
+    left: 292px;
+}
+.css-link3 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 254px;
+    left: 106px;
+}
+.css-link4 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 248px;
+    left: 476px;
+}
+.css-link5 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 15px;
+    left: 470px;
+}
+.css-link6 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
+    top: 364px;
+    left: 285px;
+}
+.css-map {
+    height: 730px;
+    padding-top: 50px;
+    top: 50px;
+    bottom: 0px;
+    left: 0px;
+    position: relative;
+    margin-right: -20px;
+    touch-action: pan-x;
+    user-select: none;
+    overflow: hidden;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-y: hidden;
+}
+
+.b_text_div {
+    position: relative;
+    top: 140px;
+    text-align: center;
+    left: 5px;
+}
+
+.b_text {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    pointer-events: none;
+}
+
+.background_img {
+    background-image: url("../static/background.png");
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin-top: -50px;
+    
+}

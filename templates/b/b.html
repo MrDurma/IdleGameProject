@@ -1,0 +1,105 @@
+{% extends "./b/b_layout.html" %}
+{% block title %}
+    Building Info
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <div class="">
+                    <b>{{ b_info["b_name"] }}</b><br>
+                    <b>LEVEL {{ b_info["b_lvl"] }}</b><br>
+                    <b><button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-b_info="{{ b_info }}">UPGRADE</button></b>&nbsp;
+                    <b><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deconstructModal" >Deconstruct</button></b>
+                </div>
+            </div>
+            <div class="col p-3 mb-2 bg-dark text-white sm">
+                <div class="">
+                {% if b_info["b_type"]=="ox_gen" %}
+                    <b>This building generates income by producing oxygen.</b>
+                {% elif b_info["b_type"]=="mine" %}
+                    <b>This building generates income by mining ore.</b>
+                {% elif b_info["b_type"]=="pow_plant" %}
+                    <b>This building generates income by producing electricity.</b>
+                {% endif %}
+                    <b>Higher level generates more money.</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upgrade {{ b_info["b_name"] }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>LEVEL: {{ b_info["b_lvl"]}} -> {{ b_info["b_lvl"] + 1 }}</b><br>
+                    <b>COST: {{ price|int * b_info["b_lvl"] }}</b><br>
+                    <b>PRODUCTION INCREASE: {{ 100 / b_info["b_lvl"] }} %</b><br>
+                    <b> UPGRADE TIME: {{ time|float * b_info["b_lvl"] }}h</b><br>
+                </div>
+                <div class="modal-footer">
+                    {% if b_info["is_busy"] %}
+                        Building is busy
+                    {% else %}
+                        <form action="/upgrade" method="post">
+                            <input name="hidden" type="hidden" value="{{ b_info['b_id'] }}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Upgrade</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deconstructModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Deconstruct {{ b_info["b_name"] }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Are you sure you want to deconstruct this building?</b><br>
+                    <b>This action is not reversible</b>
+                </div>
+                <div class="modal-footer">
+                    {% if b_info["is_busy"] %}
+                        Building is busy
+                    {% else %}
+                        <form action="/deconstruct" method="post">
+                            <input name="hidden" type="hidden" value="{{ b_info['b_id'] }}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Deconstruct</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+    var a = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = a.data('b_info') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    })
+
+    $('#deconstructModal').on('show.bs.modal', function (event) {
+    var a = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = a.data('b_info') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    })
+</script>
+{% endblock %}

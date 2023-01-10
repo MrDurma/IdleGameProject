@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+    {% block title %}
+        Index
+    {% endblock %}
+
+    {% block main %}
+        {% if session.user_id %}
+            You are logged in! {{ session.username }} <a href="/logout">logout</a>.<br>
+            Go to <a href="/map">Map</a>
+
+        {% else %}
+            You are not logged in. <a href="/login">login</a>. <br>
+            If you don't have account <a href="/register">register</a>.
+        {% endif %}
+    {% endblock %}
+

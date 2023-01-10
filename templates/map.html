@@ -1,0 +1,143 @@
+{% extends "layout.html"%}
+    {% block title %}
+        Map
+    {% endblock %}
+    {% block main %}
+        <div class="background_img">
+        </div>
+        <div class="css-map">
+            {% for building in binfo %}
+                {% if building['b_type'] == 'Empty' %}
+                    <a class='css-link{{ building["b_slot"] }}' data-toggle="modal" data-target="#exampleModal" data-b_id="{{ building['b_id'] }}">
+                        <img src="../static/tile.png" class='css-tile{{ building["b_slot"] }}'>
+                        <img src="../static/{{ building['b_type'] | lower }}.png" class='css-tile{{ building["b_slot"] }}'>
+                        
+                    </a> 
+                {% else %}
+                    <a class='css-link{{ building["b_slot"] }}' href="/b/{{building['b_id'] }}">
+                        <div>
+                            <img src="../static/tile.png" class='css-tile{{ building["b_slot"] }}'>
+                            <img src="../static/{{ building['b_type'] | lower }}.png" class='css-tile{{ building["b_slot"] }}'>
+                        </div>
+                        <div class="b_text_div">
+                            <span class="b_text">
+                                {{ building["b_name"] }}
+                            </span><br>
+                            <span class="b_text">
+                                Level: {{ building["b_lvl"] }}
+                            </span>
+                            {% if building["is_busy"] == 1 %}
+                            <br><span class="b_text">
+                                {% set date = building["busy_until"] %}
+                                Time left: {{ time_left[building["b_id"]][:7] }}<!--<p id="{{ building['b_id'] }}"></p>
+                                <script>
+                                    // Set the date we're counting down to
+                                    var countDownDate = new Date("{{date}}").getTime();
+                                    
+                                    // Update the count down every 1 second
+                                    var x = setInterval(function() {
+                                    
+                                      // Get today's date and time
+                                      var now = new Date().getTime();
+                                    
+                                      // Find the distance between now and the count down date
+                                      var distance = countDownDate - now;
+                                    
+                                      // Time calculations for days, hours, minutes and seconds
+                                      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                    
+                                      // Display the result in the element with id="demo"
+                                      document.getElementById("{{building['b_id']}}").innerHTML = hours + ":"
+                                      + minutes + ":" + seconds;
+                                    
+                                    }, 1000);
+                                    </script>
+                            </span> <!-->
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+            
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+
+                    <table class="table table-dark">
+                        <thead>
+                          <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Build time</th>
+                            <th scope="col">Profit</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <!-- TODO: Change time and cost to variables -->
+                        <tbody>
+                          <tr>
+                            <td>Mine</td>
+                            <td>0:02:00</td>
+                            <td>High</td>
+                            <td>{{10000 | usd }}</td>
+                          </tr>
+                          <tr>
+                            <td>Oxygen Generator</td>
+                            <td>0:01:00</td>
+                            <td>Medium</td>
+                            <td>{{8500 | usd }}</td>
+                          </tr>
+                          <tr>
+                            <td>Power Plant</td>
+                            <td>0:01:00</td>
+                            <td>Medium</td>
+                            <td>{{9200 | usd }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                    <form action="/build" method="post">
+                        <input type="text" style="visibility: hidden;" id="b_id" name="b_id">
+                        <label for="b_type">Build Spot</label>
+                        
+
+                        <select name="b_type" id="b_type">
+                            <option value="mine">Mine</option>
+                            <option value="ox_gen">Oxygen Generator</option>
+                            <option value="pow_plant">Power Plant</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Build</button>
+                    </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('#exampleModal').on('show.bs.modal', function (event) {
+            var a = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = a.data('b_id') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Build on slot number: ' + recipient)
+            modal.find('.modal-b_id').text(recipient)
+            modal.find('input:text').val(recipient)
+            })
+        </script>
+    {% endblock%}
