@@ -1,0 +1,2 @@
+pip install https://github.com/mitsuhiko/flask/tarball/master
+pip3 install flask-session
