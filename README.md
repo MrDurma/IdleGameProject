@@ -2,7 +2,7 @@
 #### To run the game use command "flask run"
 #### NOTE: Game does not look very pretty at the moment, my main focus was functionality. This game is still being developed.
 #### Description:
-This is a Simple Idle Game that was written in Python and HTML. This project is using Flask, Bootstrap, CSS, Sqlite3 and jQuery.
+This is a Simple Idle Game that was written in Python and HTML. This project is using Flask, Bootstrap, CSS, Sqlite3, jQuery and Jinja.
 This program lets user make a secured account (secured by Werkzeug Security) which data is stored in data.db table called users. Password itself is not stored but the hash generated.
 Creating account requirements are that username entered must be unique. Password must be at least 6 characters long and there must be 1 letter in password. Passwords must match.
 
