@@ -23,12 +23,11 @@
     <body>
         <div class="container">
             <nav class="navbar fixed-top navbar-light bg-light">
-              <a class="navbar-brand" href="http://127.0.0.1:5000/"> 
+              <a class="navbar-brand" href="/"> 
                 {% if user_info %}
                     <div style="border-radius: 25px; background-color: aqua;">
                         &nbsp{{ user_info[0]["money"] | usd }}&nbsp
                     </div>
-                    <a href="http://127.0.0.1:5000/">Home</a>
                 {% else %}
                     <b>Welcome</b>
                 {% endif %}</a>

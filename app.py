@@ -44,7 +44,7 @@ def after_request(response):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Show the main page where users will have short description of game and ability to login/register.
+    # TODO: Show the main page where users will have short description of game and ability to login/register.
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -229,7 +229,7 @@ def upgrade():
         if building:
             if (session["user_id"] == building["user_id"]) or (building["is_busy"] == 0):
 
-                #TODO: upgrade building. 
+                 
                 db.execute("SELECT money FROM users WHERE user_id=?",(building["user_id"],))
                 user_money = db.fetchone()
                 user_money = int(user_money[0])
@@ -237,7 +237,6 @@ def upgrade():
                 if user_money < upgrade_price:
                     return error("You don't have enough money", 401)
 
-                
                 upgrade_time = building_time(building["b_type"], building["b_lvl"])
                 upgrade_time = datetime.now() + timedelta(hours = upgrade_time)
                 db.execute("UPDATE buildings SET busy_until=?, is_busy=1, status='Upgrading' WHERE b_id=?", (upgrade_time.strftime("%Y-%m-%d %H:%M:%S"), building["b_id"]))
