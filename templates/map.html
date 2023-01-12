@@ -29,7 +29,15 @@
                             {% if building["is_busy"] == 1 %}
                             <br><span class="b_text">
                                 {% set date = building["busy_until"] %}
-                                Time left: {{ time_left[building["b_id"]][:7] }}<!--<p id="{{ building['b_id'] }}"></p>
+                                Time left: {{ time_left[building["b_id"]][:7] }}<br>
+                                <div id="timerr">
+                                    <b id="timer">Time left: </b><br>
+                                    <b id="test1"></b><br>
+                                    <b id="test2"></b><br>
+                                    <input type="hidden" id="end_time" value = "{{ time_left[building['b_id']][:7] }}">
+                                </div>
+
+                                <!--<p id="{{ building['b_id'] }}"></p>
                                 <script>
                                     // Set the date we're counting down to
                                     var countDownDate = new Date("{{date}}").getTime();
@@ -140,4 +148,6 @@
             modal.find('input:text').val(recipient)
             })
         </script>
+    <script src="../static//countdown.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', countdown);</script>
     {% endblock%}
