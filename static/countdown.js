@@ -1,7 +1,7 @@
-// TODO: For now timer works only for one building, implement timer so it works for each busy building.
-function countdown() {
+// TODO: For now timer works only for first building, implement timer so it works for each busy building.
+function countdown(endTime, elementId) {
     let hours, minutes, seconds;
-    let endTime = document.getElementById("end_time").value;
+    // let endTime = document.getElementById("end_time").value;
     let end = new Date();
     let endHours = endTime.split(':')[0];
     let endMinutes = endTime.split(':')[1];
@@ -11,7 +11,7 @@ function countdown() {
     setInterval(subtraction, 1000);
   
     function subtraction() {
-      document.getElementById("test1").innerHTML = endHours + ":" + endMinutes + ":" + endSeconds;
+      document.getElementById("testing"/*elementId + "_timer"*/).innerHTML = endHours + ":" + endMinutes + ":" + endSeconds;
       endSeconds--;
       if (endSeconds <= 0 ) {
         if (endHours > 0 && endMinutes == 0){

@@ -28,13 +28,11 @@
                             </span>
                             {% if building["is_busy"] == 1 %}
                             <br><span class="b_text">
-                                {% set date = building["busy_until"] %}
                                 Time left: {{ time_left[building["b_id"]][:7] }}<br>
-                                <div id="timerr">
-                                    <b id="timer">Time left: </b><br>
-                                    <b id="test1"></b><br>
-                                    <b id="test2"></b><br>
-                                    <input type="hidden" id="end_time" value = "{{ time_left[building['b_id']][:7] }}">
+                                <div id="countdown">
+                                    <b id="{{ building['b_id'] }}_timer"></b><br>
+                                    <b id="testing">a</b>
+                                    <input type="hidden" id = "{{ building['b_id'] }}" class="{{ building['b_id'] }}_end_time" value = "{{ time_left[building['b_id']][:7] }}">
                                 </div>
 
                                 <!--<p id="{{ building['b_id'] }}"></p>
@@ -149,5 +147,12 @@
             })
         </script>
     <script src="../static//countdown.js"></script>
+    <script>
+        let elements = document.querySelectorAll('[class$="_end_time"]');
+        for (let i = 0; i <= elements.length; i++){
+            countdown(endTime, elements[i].id);
+        }
+        //document.getElementById("testing").innerHTML = elements[0].id;
+    </script>
     <script>document.addEventListener('DOMContentLoaded', countdown);</script>
     {% endblock%}
