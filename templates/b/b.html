@@ -39,7 +39,7 @@
                 <div class="modal-body">
                     <b>LEVEL: {{ b_info["b_lvl"]}} -> {{ b_info["b_lvl"] + 1 }}</b><br>
                     <b>COST: {{ price|int * b_info["b_lvl"] }}</b><br>
-                    <b>PRODUCTION INCREASE: {{ 100 / b_info["b_lvl"] }} %</b><br>
+                    <b>PRODUCTION INCREASE: {{ '%.1f' % (100 / b_info["b_lvl"]) }} %</b><br>
                     <b> UPGRADE TIME: {{ time|float * b_info["b_lvl"] }}h</b><br>
                 </div>
                 <div class="modal-footer">
