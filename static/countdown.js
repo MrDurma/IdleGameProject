@@ -1,29 +1,41 @@
-// TODO: For now timer works only for first building, implement timer so it works for each busy building.
-function countdown(endTime, elementId) {
-    let hours, minutes, seconds;
-    // let endTime = document.getElementById("end_time").value;
-    let end = new Date();
-    let endHours = endTime.split(':')[0];
-    let endMinutes = endTime.split(':')[1];
-    let endSeconds = endTime.split(':')[2];
+/* This function takes parameters timeLeft(supports only hh:mm:ss format) 
+and elementId(id of element where to display time */
+function countdown(timeLeft, elementId) {
+    // Initialising variables
+    let hoursLeft = timeLeft.split(':')[0];
+    let minutesLeft = timeLeft.split(':')[1];
+    let secondsLeft = timeLeft.split(':')[2];
 
     // Calling subtraction function every 1000ms (1 second)
-    setInterval(subtraction, 1000);
-  
+    let intervalId = setInterval(subtraction, 1000);
+    
+    // This function is subtracting time (one second) on each iteration.
     function subtraction() {
-      document.getElementById("testing"/*elementId + "_timer"*/).innerHTML = endHours + ":" + endMinutes + ":" + endSeconds;
-      endSeconds--;
-      if (endSeconds <= 0 ) {
-        if (endHours > 0 && endMinutes == 0){
-          endHours--;
-          endMinutes == 59;
+      // Displaying changes on website in hh:mm:ss format.
+      document.getElementById(elementId + "_timer").innerHTML = "Time left: " + 
+                              `0${hoursLeft}`.slice(-2) + ":" + `0${minutesLeft}`.slice(-2) + 
+                              ":" + `0${secondsLeft}`.slice(-2);
+      if (secondsLeft == 0){
+        if (minutesLeft == 0){
+          if (hoursLeft == 0) {
+            location.reload()
+            setTimeout(function() {
+              clearInterval(intervalId);
+            }, 1000);
+              
+          }
+          else {
+            hoursLeft--;
+            minutesLeft = 59;
+            secondsLeft = 60;
+          }
         }
-        else if(endHours == 0 && endMinutes == 0){
-          return;
+        else {
+          minutesLeft--;
+          secondsLeft = 60;
         }
-        endSeconds = 59;
-        endMinutes--;
       }
+      secondsLeft--;
     }
   }
   

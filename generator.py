@@ -7,7 +7,6 @@ import sqlite3
 import time
 from threading import Lock
 from datetime import datetime, timedelta
-from helpers import my_timedelta, get_sec
 
 lock= Lock()
 
@@ -20,7 +19,8 @@ data.row_factory = sqlite3.Row
 db = data.cursor()
 
 def building_income():
-    """ Generates income every 5 seconds for every building built in buildings.db based on their type and level.
+    """ Generates income every 5 seconds for every building built in 
+        buildings.db based on their type and level.
         Busy buildings do not generate income. """
     threading.Timer(5.0, building_income).start()
     lock.acquire(True)
@@ -35,14 +35,14 @@ def building_income():
                 break
             else:
                 lock.acquire(True)
-                db.execute("UPDATE users SET money = money + ? WHERE user_id = ?", ((i * building["b_lvl"]), building["user_id"]))
+                db.execute("UPDATE users SET money = money + ? WHERE user_id = ?",
+                          ((i * building["b_lvl"]), building["user_id"]))
                 data.commit()
                 lock.release()
-        
-    # POSSIBLE ISSUE: WILL IT BE TOO MUCH TO LOAD WHOLE BUILD DB AND UPDATE USER DB EVERY 5 SECONDS????
 
 def update_busy_status():
-    """ This function is checking every 5 seconds if building status should be changed from busy to not busy(1 or 0)"""
+    """ This function is checking every 5 seconds if building status 
+        should be changed from busy to not busy(1 or 0)"""
     threading.Timer(5.0, update_busy_status).start()
     lock.acquire(True)
     db.execute("SELECT * FROM buildings WHERE is_busy=1")
@@ -72,5 +72,3 @@ def update_busy_status():
             db.execute("UPDATE buildings SET status='' WHERE b_id=?", (building["b_id"], ))
             data.commit()
             lock.release()
-            
-

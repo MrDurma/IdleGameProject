@@ -32,8 +32,8 @@ def usd(value):
     return f"${value:,.2f}"
 
 def error(message, code=400):
-    # Default error 400 - Bad Request
     """Render message as an error to user."""
+    # Default error 400 - Bad Request
     return render_template("error.html", code=code, message=message), code
 
 def building_name(b_type):
@@ -60,18 +60,4 @@ def building_time(b_type, level = 1):
         if b_type == building_type:
             return time * level
     return "ERROR"
- 
-# src="https://stackoverflow.com/questions/34134971/python-format-timedelta-greater-than-24-hours-for-display-only-containing-hours"
-class my_timedelta(timedelta):
-    """This function transfors time into HHMMSS format, allowing hour value to go over 24."""
-    def __str__(self):
-        seconds = self.total_seconds()
-        str = '%d:%02d:%02d' % (seconds / 3600, seconds / 60 % 60, seconds % 60)
-        return (str)
-
-# This function takes as input HHMMSS format and returns seconds.
-# src="https://stackoverflow.com/questions/6402812/how-to-convert-an-hmmss-time-string-to-seconds-in-python"
-def get_sec(time_str):
-    """Get seconds from time."""
-    h, m, s = time_str.split(':')
-    return int(h) * 3600 + int(m) * 60 + int(s)
+    

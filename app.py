@@ -1,15 +1,14 @@
-import os
 import re
 import datetime
 
 import sqlite3
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
-from tempfile import mkdtemp
+#from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime, timedelta
 
-from helpers import error, login_required, usd, building_name, building_price, building_time, my_timedelta
+from helpers import error, login_required, usd, building_name, building_price, building_time
 from generator import building_income, update_busy_status
 
 # TODO: make index.html look better, make new building models and background picture.
@@ -44,7 +43,6 @@ def after_request(response):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # TODO: Show the main page where users will have short description of game and ability to login/register.
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -125,8 +123,10 @@ def register():
 
          # Registering new user and hashing the password.
         else:
-            db.execute("INSERT INTO users(username, hash) values(?, ?)", (request.form.get("username"), 
-                        generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8)))
+            db.execute("INSERT INTO users(username, hash) values(?, ?)", 
+                       (request.form.get("username"), 
+                       generate_password_hash(request.form.get("password"), 
+                       method='pbkdf2:sha256', salt_length=8)))
             data.commit()
 
             # Keep user logged in after registering.
@@ -138,7 +138,8 @@ def register():
 
             # Adding default buildings (slots 1, 2, 3, 4) to db for given user upon registration.
             for counter in range(1, 5):
-                db.execute("INSERT INTO buildings(user_id, b_slot) VALUES(?, ?)", (session["user_id"], counter))
+                db.execute("INSERT INTO buildings(user_id, b_slot) VALUES(?, ?)", 
+                           (session["user_id"], counter))
                 data.commit()
         # Redirect user to home page
         return redirect("/")
@@ -159,21 +160,32 @@ def logout():
 
 @app.route("/map", methods=["GET", "POST"])
 @login_required
-def map():
+def game_map():
     """ Game map """
-    db.execute("SELECT username, money, experience, level, max_b FROM users WHERE user_id=?", [session["user_id"]])
+    db.execute("""
+        SELECT username, money, experience, level, max_b
+        FROM users 
+        WHERE user_id=?
+    """, [session["user_id"]])
     user_info = db.fetchall()
-    db.execute("SELECT * FROM buildings WHERE user_id=? ORDER BY b_slot", [session["user_id"]])
+    db.execute("""
+        SELECT * 
+        FROM buildings 
+        WHERE user_id=? 
+        ORDER BY b_slot
+    """, [session["user_id"]])
     binfo = db.fetchall()
     db.execute("SELECT * FROM test")
     test = db.fetchall()
     time_left = {}
     for building in binfo:
         if building["is_busy"] == 1:
-            time_left[building["b_id"]] = str(datetime.strptime(building["busy_until"], "%Y-%m-%d %H:%M:%S") - datetime.now())
+            time_left[building["b_id"]] = str(datetime.strptime(building["busy_until"], 
+                                              "%Y-%m-%d %H:%M:%S") - datetime.now())
             #time_left[building] = datetime.strptime(time_left[building["b_id"]], "%H:%M:%S")
 
-    return render_template("map.html", user_info=user_info, binfo=binfo, test=test, time_left=time_left)
+    return render_template("map.html", user_info=user_info, 
+                           binfo=binfo, test=test, time_left=time_left)
 
 @app.route("/build", methods=["POST"])
 @login_required
@@ -193,13 +205,18 @@ def build():
                     return error("You can't afford this building", 401)
                 build_time = building_time(b_type, 1)
                 build_time = datetime.now() + timedelta(minutes = build_time)
-                db.execute("UPDATE buildings SET b_type=?, b_name=?, status='Constructing', is_busy=1, busy_until=? WHERE b_id=?", 
-                           (b_type, b_name, build_time.strftime("%Y-%m-%d %H:%M:%S"), request.form.get("b_id")))
+                db.execute("""
+                    UPDATE buildings 
+                    SET b_type=?, b_name=?, status='Constructing', is_busy=1, busy_until=? 
+                    WHERE b_id=?
+                """, (b_type, b_name, build_time.strftime("%Y-%m-%d %H:%M:%S"), 
+                          request.form.get("b_id")))
                 data.commit()
-                db.execute("UPDATE users SET money=money-? WHERE user_id=?", (price, session["user_id"]))
+                db.execute("UPDATE users SET money=money-? WHERE user_id=?", 
+                           (price, session["user_id"]))
                 data.commit()
                 return redirect("/map")
-        
+                
         return error("You can't build selected building", 401)
 
 @app.route("/b/<b_id>", methods = ["GET", "POST"])
@@ -239,9 +256,14 @@ def upgrade():
 
                 upgrade_time = building_time(building["b_type"], building["b_lvl"])
                 upgrade_time = datetime.now() + timedelta(hours = upgrade_time)
-                db.execute("UPDATE buildings SET busy_until=?, is_busy=1, status='Upgrading' WHERE b_id=?", (upgrade_time.strftime("%Y-%m-%d %H:%M:%S"), building["b_id"]))
+                db.execute("""
+                    UPDATE buildings 
+                    SET busy_until=?, is_busy=1, status='Upgrading' 
+                    WHERE b_id=?
+                """, (upgrade_time.strftime("%Y-%m-%d %H:%M:%S"), building["b_id"]))
                 data.commit()
-                db.execute("UPDATE users SET money=money-? WHERE user_id=?",(upgrade_price, building["user_id"]))
+                db.execute("UPDATE users SET money=money-? WHERE user_id=?",
+                           (upgrade_price, building["user_id"]))
                 data.commit()
                 return redirect("/map")
         return error("Upgrading this building is not possible", 401)
@@ -259,7 +281,11 @@ def deconstruct():
         building = db.fetchone()
         if building:
             if (session["user_id"] == building["user_id"]) or (building["is_busy"] == 0):
-                db.execute("UPDATE buildings SET b_type='Empty', b_lvl='1', b_name='Empty' WHERE b_id=?", (building["b_id"] ,))
+                db.execute("""
+                    UPDATE buildings 
+                    SET b_type='Empty', b_lvl='1', b_name='Empty' 
+                    WHERE b_id=?
+                """, (building["b_id"] ,))
                 data.commit()
                 return redirect("/map")
         return error("Deconstructing this building is not possible", 401)
