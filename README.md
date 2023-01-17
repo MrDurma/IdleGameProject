@@ -29,7 +29,7 @@ and if user is not logged in they will only have option to log in.
 
 "/login" route is where user logs in their existing account, if user enters wrong username or password they will not be able to login.
 
-"/register" route is covered in 4th line.
+"/register" route is where user creates a new account if they meet the requirements.
 
 "/logout" route logs user out, and redirects them to home page.
 
