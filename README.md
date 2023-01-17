@@ -4,7 +4,6 @@
 #### Description:
 This is a Simple Idle Game that was written in Python and HTML. This project is using Flask, Bootstrap, CSS, Sqlite3, jQuery and Jinja.
 This program lets user make a secured account (secured by Werkzeug Security) which data is stored in data.db table called users. Password itself is not stored but the hash generated.
-Creating account requirements are that username entered must be unique. Password must be at least 6 characters long and there must be 1 letter in password. Passwords must match.
 
 Upon creating account, table called buildings in data.db is generating new entries. Each new user registered automatically get's assigned 4 rows in buildings database. 
 This database's function is to keep track of each building in a way that allows user to upgrade building's level and deconstruct building.
