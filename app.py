@@ -136,8 +136,8 @@ def register():
             session["username"] = rows[0]["username"]
 
 
-            # Adding default buildings (slots 1, 2, 3, 4) to db for given user upon registration.
-            for counter in range(1, 5):
+            # Adding default buildings (slots 1, 2, 3, 4, 5, 6) to db for given user upon registration.
+            for counter in range(1, 7):
                 db.execute("INSERT INTO buildings(user_id, b_slot) VALUES(?, ?)", 
                            (session["user_id"], counter))
                 data.commit()
@@ -186,6 +186,14 @@ def game_map():
 
     return render_template("map.html", user_info=user_info, 
                            binfo=binfo, test=test, time_left=time_left)
+
+@app.route("/headquarters", methods=["GET", "POST"])
+@login_required
+def headquarters():
+    """ Displays inventory to user"""
+    #TODO: add more info to display to user
+    if request.method == "GET":
+        return render_template("headquarters.html")
 
 @app.route("/build", methods=["POST"])
 @login_required
@@ -289,3 +297,8 @@ def deconstruct():
                 data.commit()
                 return redirect("/map")
         return error("Deconstructing this building is not possible", 401)
+
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    return render_template("test.html")
+

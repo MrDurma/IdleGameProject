@@ -25,9 +25,7 @@
             <nav class="navbar fixed-top navbar-light bg-light">
               <a class="navbar-brand" href="/"> 
                 {% if user_info %}
-                    <div style="border-radius: 25px; background-color: aqua;">
                         &nbsp{{ user_info[0]["money"] | usd }}&nbsp
-                    </div>
                 {% else %}
                     <b>Welcome</b>
                 {% endif %}</a>

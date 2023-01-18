@@ -1,118 +1,108 @@
+.css-tile {
+    top: 118px;
+    left: 611px;
+}
+
 .css-tile1 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 208px;
+    left: 771px;
 }
 
 .css-tile2 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 280px;
+    left: 644px;
 }
 .css-tile3 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 280px;
+    left: 899px;
 }
 .css-tile4 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 352px;
+    left: 772px;
 }
 .css-tile5 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 352px;
+    left: 1027px
 }
 .css-tile6 {
-    width: 250px;
-    height: 180px;
-    cursor: pointer;
-    position: absolute;
-    pointer-events: none;
-    top: -28px;
-    left: -45px;
+    top: 424px;
+    left: 900px;
 }
+
+.css-tile7 {
+    top: 424px;
+    left: 900px;
+}
+
+.css-building {
+    top: 118px;
+    left: 611px;
+}
+
+.css-building1 {
+    top: 208px;
+    left: 771px;
+}
+
+.css-building2 {
+    top: 280px;
+    left: 644px;
+}
+.css-building3 {
+    top: 280px;
+    left: 899px;
+}
+.css-building4 {
+    top: 352px;
+    left: 772px;
+}
+.css-building5 {
+    top: 352px;
+    left: 1027px
+}
+.css-building6 {
+    top: 424px;
+    left: 900px;
+}
+
+.css-building7 {
+    top: 424px;
+    left: 900px;
+}
+
+.css-link {
+    top: 192px;
+    left: 630px;
+}
+
 .css-link1 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 135px;
-    left: 657px;
+    top: 282px;
+    left: 803px;
 }
 
 .css-link2 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 133px;
-    left: 292px;
+    top: 354px;
+    left: 672px;
 }
 .css-link3 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 254px;
-    left: 106px;
+    top: 353px;
+    left: 934px;
 }
 .css-link4 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 248px;
-    left: 476px;
+    top: 423px;
+    left: 798px;
 }
 .css-link5 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 15px;
-    left: 470px;
+    top: 423px;
+    left: 1058px;
 }
 .css-link6 {
-    width: 150px;
-    height: 100px;
-    position: absolute;
-    color: rgb(51, 51, 51);
-    cursor: pointer;
-    transition: margin-top 0.3s ease 0s;
-    top: 364px;
-    left: 285px;
+    top: 498px;
+    left: 931px;
+}
+.css-link7 {
+    top: 424px;
+    left: 900px;
 }
 .css-map {
     height: 730px;
@@ -137,9 +127,8 @@
 
 .b_text_div {
     position: relative;
-    top: 140px;
+    top: 74px;
     text-align: center;
-    left: 5px;
 }
 
 .b_text {
@@ -152,10 +141,26 @@
 }
 
 .background_img {
-    background-image: url("../static/background.png");
     position: fixed;
     width: 100%;
     height: 100%;
-    margin-top: -50px;
+    margin-top: -0px;
     
+}
+
+.tile {
+    position: absolute;
+    width: 260px;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.link {
+    z-index: 1;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+    transition: margin-top 0.3s ease 0s;
 }

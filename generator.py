@@ -33,6 +33,12 @@ def building_income():
         for b_type, i in index.items():
             if building["b_type"] == "Empty":
                 break
+
+            # TODO: Generate resources
+            if building["b_type"] == "Farm":
+                break
+
+            # Generates $ directly
             else:
                 lock.acquire(True)
                 db.execute("UPDATE users SET money = money + ? WHERE user_id = ?",
@@ -51,7 +57,7 @@ def update_busy_status():
     for building in buildings:
         time = datetime.strptime(building["busy_until"], '%Y-%m-%d %H:%M:%S')
 
-        # If time until building is completed is 15 seconds or less
+        # If time until building is constructed/upgraded is 15 seconds or less
         if  time < (datetime.now() + timedelta(seconds = 15)):
             lock.acquire(True)
 

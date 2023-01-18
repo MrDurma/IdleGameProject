@@ -8,10 +8,10 @@ from datetime import timedelta
 from functools import wraps
 
 # Base price for buildings, it's multiplied by level for upgrading.
-building_prices = {"mine": 10000, "ox_gen": 8500, "pow_plant": 9200}
+building_prices = {"mine": 10000, "ox_gen": 8500, "pow_plant": 9200, "farm": 2000}
 
 # Base time for buildings, it's multiplied by level for upgrading.
-building_times = {"mine": 2, "ox_gen": 1, "pow_plant": 1}
+building_times = {"mine": 2, "ox_gen": 1, "pow_plant": 1, "farm": 0.2}
 
 
 def login_required(f):
@@ -44,6 +44,8 @@ def building_name(b_type):
         return "Power Plant"
     elif b_type == "ox_gen":
         return "Oxygen Generator"
+    elif b_type == "farm":
+        return "Farm"
     else:
         return "N\A"
 

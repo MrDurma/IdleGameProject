@@ -6,40 +6,62 @@
         Map
     {% endblock %}
     {% block main %}
-        <div class="background_img">
-        </div>
-        <div class="css-map">
-            {% for building in binfo %}
-                {% if building['b_type'] == 'Empty' %}
-                    <a class='css-link{{ building["b_slot"] }}' data-toggle="modal" data-target="#exampleModal" data-b_id="{{ building['b_id'] }}">
-                        <img src="../static/tile.png" class='css-tile{{ building["b_slot"] }}'>
-                        <img src="../static/{{ building['b_type'] | lower }}.png" class='css-tile{{ building["b_slot"] }}'>
-                        
-                    </a> 
-                {% else %}
-                    <a class='css-link{{ building["b_slot"] }}' href="/b/{{building['b_id'] }}">
-                        <div>
-                            <img src="../static/tile.png" class='css-tile{{ building["b_slot"] }}'>
-                            <img src="../static/{{ building['b_type'] | lower }}.png" class='css-tile{{ building["b_slot"] }}'>
-                        </div>
-                        <div class="b_text_div">
-                            <span class="b_text">
-                                {{ building["b_name"] }}
-                            </span><br>
-                            <span class="b_text">
-                                Level: {{ building["b_lvl"] }}
-                            </span>
-                            {% if building["is_busy"] == 1 %}
-                            <br><span class="b_text">
-                                <div id="countdown">
-                                    <b id="{{ building['b_id'] }}_timer">Time left: </b><br>
-                                    <input type="hidden" id = "{{ building['b_id'] }}" class="{{ building['b_id'] }}_end_time" value = "{{ time_left[building['b_id']][:7] }}">
-                                </div>
-                            {% endif %}
-                        </div>
-                    </a>
-                {% endif %}
-            {% endfor %}
+        <!--<div class="background_img">
+        </div> <!-->
+        <div>
+            <div>
+                <img src="../static/background1.png" class="background_img">
+            </div>
+            <div>
+                <div>
+                    <img src="../static/grass_tile.png" class='tile css-tile'>
+                    <img src="../static/headquarters.png" class='tile css-building'>
+                    <a class="link css-link" href="/headquarters"></a>
+                </div>
+                <img src="../static/base_road.png" class="tile" style="top: 146px;left: 819px;">
+                <img src="../static/road_right.png" class="tile" style="top: 163px;left: 691px;">
+                <img src="../static/road_right.png" class="tile" style="top: 235px;left: 564px;">
+                <img src="../static/base_road.png" class="tile" style="top: 163px;left: 849px;">
+                <img src="../static/base_road.png" class="tile" style="top: 235px;left: 977px;">
+                <img src="../static/base_road.png" class="tile" style="top: 307px;left: 1105px;">
+                {% for building in binfo %}
+                    <div>
+                        <img src="../static/grass_tile.png" class='tile css-tile{{ building["b_slot"] }}'>
+                        <img src="../static/{{ building['b_type'] | lower }}.png" class='tile css-building{{ building["b_slot"] }}'>
+                    
+                    {% if building['b_type'] == 'Empty' %}
+                        <a class='link css-link{{ building["b_slot"] }}' data-toggle="modal" data-target="#exampleModal" data-b_id="{{ building['b_id'] }}"> 
+                        </a> 
+                    {% else %}
+                        <a class='link css-link{{ building["b_slot"] }}' href="/b/{{building['b_id'] }}">
+                            <div class="b_text_div">
+                                <span class="b_text">
+                                    {{ building["b_name"] }}
+                                </span><br>
+                                <span class="b_text">
+                                    Level: {{ building["b_lvl"] }}
+                                </span>
+                                {% if building["is_busy"] == 1 %}
+                                <br><span class="b_text">
+                                    <div id="countdown">
+                                        <b id="{{ building['b_id'] }}_timer">Time left: </b><br>
+                                        <input type="hidden" id = "{{ building['b_id'] }}" class="{{ building['b_id'] }}_end_time" value = "{{ time_left[building['b_id']][:7] }}">
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+                <img src="../static/base_road.png" class="tile" style="top: 307px;left: 532px;">
+                <img src="../static/base_road.png" class="tile" style="top: 325px;left: 564px;">
+                <img src="../static/base_road.png" class="tile" style="top: 397px;left: 692px;">
+                <img src="../static/base_road.png" class="tile" style="top: 469px;left: 820px;">
+                <img src="../static/road_right.png" class="tile" style="top: 379px;left: 1137px;">
+                <img src="../static/road_right.png" class="tile" style="top: 396px;left: 1107px;">
+                <img src="../static/road_right.png" class="tile" style="top: 468px;left: 979px;">
+                <img src="../static/road_right.png" class="tile" style="top: 486px;left: 947px;">
+            </div>
             
 
             <!-- Modal -->
@@ -66,22 +88,16 @@
                         <!-- TODO: Change time and cost to variables -->
                         <tbody>
                           <tr>
-                            <td>Mine</td>
-                            <td>0:02:00</td>
-                            <td>High</td>
-                            <td>{{10000 | usd }}</td>
-                          </tr>
-                          <tr>
-                            <td>Oxygen Generator</td>
-                            <td>0:01:00</td>
-                            <td>Medium</td>
-                            <td>{{8500 | usd }}</td>
-                          </tr>
-                          <tr>
                             <td>Power Plant</td>
                             <td>0:01:00</td>
                             <td>Medium</td>
                             <td>{{9200 | usd }}</td>
+                          </tr>
+                          <tr>
+                            <td>Farm</td>
+                            <td>0:00:12</td>
+                            <td>Varies</td>
+                            <td>{{2000 | usd }}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -92,9 +108,8 @@
                         
 
                         <select name="b_type" id="b_type">
-                            <option value="mine">Mine</option>
-                            <option value="ox_gen">Oxygen Generator</option>
                             <option value="pow_plant">Power Plant</option>
+                            <option value="farm">Farm</option>
                         </select>
                     </div>
                     <div class="modal-footer">
