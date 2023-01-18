@@ -4,4 +4,4 @@
 #### Description:
 This is a Simple Idle Game that was written in Python and HTML. This project is using Flask, Bootstrap, CSS, Sqlite3, jQuery and Jinja.
 
-#### NOTE: I've decided to switch from Flask to Django Framework, I will post update here once I finish.
+#### NOTE 18/1/2023: I've decided to switch from Flask to Django Framework, I will post update here once I finish.
